@@ -5,6 +5,7 @@ $SVN::Log::FORCE_COMMAND_LINE_SVN = 1;
 use Data::Dumper;
 use File::Slurp;
 use Getopt::Std;
+use SVNLog;
 
 my $UUIDMAP = 'url2uuid.txt';
 
@@ -89,7 +90,7 @@ sub get_log {
   foreach my $r (@$revs) {
     my $revision = $r->{revision};
     die "No revision??" if ! defined $revision;
-    my $dir = get_dir_for($revision);
+    my $dir = SVNLog::get_dir_for($revision);
     $dir = "$uuid/$dir";
     if (! -d $dir) {
       `mkdir -p $dir`;
@@ -101,11 +102,6 @@ sub get_log {
   }
   verbose "";
   return 0;
-}
-
-sub get_dir_for {
-	my ($r) = @_;
-	return int($r / 1000);
 }
 
 sub get_repo_uuid {
