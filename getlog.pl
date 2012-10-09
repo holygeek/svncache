@@ -29,7 +29,7 @@ my %opts;
 getopts('dvn', \%opts);
 sub verbose {
   my ($text) = @_;
-  print "$text\n" if $opts{v} || $opts{n};
+  print "$text" if $opts{v} || $opts{n};
 }
 
 
@@ -72,7 +72,7 @@ sub get_latest_revision {
 
 sub get_log {
   my ($svnurl, $startrev, $endrev) = @_;
-  verbose "get_log $svnurl $startrev $endrev";
+  verbose "get_log $svnurl $startrev $endrev\n";
   exit 0 if $opts{n};
 
   my $uuid = get_repo_uuid($svnurl);
@@ -98,9 +98,9 @@ sub get_log {
     open my $file, '>', "$dir/$revision" or die "Error: $!";
     print $file Dumper($r);
     close $file;
-    verbose "$revision";
+    verbose "$revision ";
   }
-  verbose "";
+  verbose "\n";
   return 0;
 }
 
