@@ -59,15 +59,10 @@ exit 0;
 sub fetch_new_logs {
   my $map = eval_dump($UUIDMAP);
   while (my ($uuid, $urls) = each %$map) {
-    my $last_revision = get_latest_revision($uuid);
+    my $last_revision = SVNLog::get_latest_revision($uuid);
     my $next_revision = $last_revision + 1;
     get_log($urls->[0], $next_revision, 'HEAD');
   }
-}
-
-sub get_latest_revision {
-  my ($uuid) = @_;
-  return `cd $uuid; ls -R|sort -n|tail -1`
 }
 
 sub get_log {

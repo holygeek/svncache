@@ -22,4 +22,10 @@ sub get_dir_for {
 	return int($r / 1000);
 }
 
+sub get_latest_revision {
+  my ($uuid) = @_;
+  return `cd $uuid; ls -R|sort -n|tail -1`
+}
+
+
 1;
